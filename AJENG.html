@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Ajeng ??</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #ffe4e1;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        img {
+            max-width: 80%;
+            border-radius: 15px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 7, 0.2);
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #ff4d6d;
+            color: white;
+        }
+        button:hover {
+            background-color: #ff1c49;
+        }
+        #choices {
+            display: none;
+            margin-top: 20px;
+        }
+        .choice-btn {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img id="photo" src="https://i.postimg.cc/G4mqDXg7/image.jpg" alt="Ajeng ??">
+        <h2 id="text">Ajeng, aku ada sesuatu buat kamu...</h2>
+        <button id="nextBtn" onclick="nextSlide()">Lanjut?</button>
+        <br>
+        <div id="choices">
+            <button class="choice-btn" onclick="sendToWA(true)">Iya</button>
+            <button class="choice-btn" onclick="sendToWA(false)">Tidak</button>
+        </div>
+        <button id="sendWA" style="display: none;" onclick="sendToWA(true)">Kirim Jawaban ke WhatsApp</button>
+        <!-- Music file -->
+        <audio id="music" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+    </div>
+
+    <script>
+        let texts = [
+            "Ajeng, aku ada sesuatu buat kamu...",
+            "Dari pertama kenal, kamu selalu bikin hariku lebih cerah.",
+            "Setiap hari makin yakin kalau aku suka kamu.",
+            "Jadi, aku mau tanya...",
+            "Mau nggak kamu jadi bagian dari hariku terus? ??"
+        ];
+        
+        let buttonTexts = [
+            "Lanjut?", 
+            "Serius nih...", 
+            "Beneran!", 
+            "Tinggal satu lagi...", 
+            "Jawaban kamu? ??"
+        ];
+        
+        let index = 0;
+        
+        function nextSlide() {
+            playMusic();
+            index++;
+            if (index < texts.length) {
+                document.getElementById("text").innerText = texts[index];
+                document.getElementById("nextBtn").innerText = buttonTexts[index];
+            } else {
+                document.getElementById("text").innerText = "Ajeng, aku suka kamu ??";
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("choices").style.display = "inline-block";  // Tampilkan pilihan
+            }
+        }
+        
+        function playMusic() {
+            let music = document.getElementById("music");
+            music.play();
+        }
+        
+        function sendToWA(isYes) {
+            let message;
+            if (isYes) {
+                message = encodeURIComponent("Ajeng, aku suka kamu ?? Mau nggak jadi bagian dari hariku terus?");
+            } else {
+                message = encodeURIComponent("Ajeng, aku ngerti kalau kamu belum siap. Tapi aku tetap suka kamu ??");
+            }
+            let waLink = "https://wa.me/6283820107756?text=" + message;
+            window.open(waLink, "_blank");
+        }
+    </script>
+</body>
+</html>
